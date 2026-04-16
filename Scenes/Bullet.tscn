@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://snwk7u10yql3"]
+
+[ext_resource type="Script" uid="uid://du068hplpkh82" path="res://Scripts/Player Weapons/bullet.gd" id="1_vlxeq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlxeq"]
+albedo_color = Color(0.9471546, 0.8989285, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_nr8tw"]
+material = SubResource("StandardMaterial3D_vlxeq")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vlxeq"]
+
+[node name="Bullet" type="RigidBody3D" unique_id=214309773]
+continuous_cd = true
+script = ExtResource("1_vlxeq")
+damage = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1115265835]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_nr8tw")
+
+[node name="Timer" type="Timer" parent="." unique_id=706450250]
+wait_time = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1208919095]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_vlxeq")
+
+[node name="bulletArea" type="Area3D" parent="." unique_id=1290035631]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bulletArea" unique_id=1992234885]
+transform = Transform3D(0.21, 0, 0, 0, 0.21, 0, 0, 0, 0.21, 0, 0, 0)
+shape = SubResource("SphereShape3D_vlxeq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="bulletArea" to="." method="_on_bullet_area_body_entered"]

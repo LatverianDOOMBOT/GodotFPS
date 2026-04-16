@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://btmdyipvj6ye4"]
+
+[ext_resource type="Script" uid="uid://dr56ugr1vmtre" path="res://Scripts/Player Weapons/shotgun.gd" id="1_u0ide"]
+[ext_resource type="PackedScene" uid="uid://d0yotkoejavkw" path="res://Models/Guns/Meshy_AI_Crimson_Thunder_Canno_0216072546_generate.glb" id="2_8claw"]
+
+[node name="Shotgun" type="Node3D" unique_id=587320121]
+script = ExtResource("1_u0ide")
+
+[node name="Meshy_AI_Crimson_Thunder_Canno_0216072546_generate" parent="." unique_id=1901077101 instance=ExtResource("2_8claw")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="ShotgunRay" type="RayCast3D" parent="." unique_id=198933753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29123342, 0, 0)
+visible = false
+target_position = Vector3(-100, 0, 0)

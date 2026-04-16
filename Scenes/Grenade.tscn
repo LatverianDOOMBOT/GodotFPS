@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://drqk6ceextwlh"]
+
+[ext_resource type="Script" uid="uid://ddhtau6a2ckdv" path="res://Scripts/Player Weapons/grenade.gd" id="1_be0jk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_be0jk"]
+size = Vector3(10, 10, 10)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_be0jk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t2ec2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlxeq"]
+albedo_color = Color(0.8585256, 0.22471452, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g1s4a"]
+material = SubResource("StandardMaterial3D_vlxeq")
+
+[node name="Grenade" type="RigidBody3D" unique_id=1045317279]
+mass = 5.0
+script = ExtResource("1_be0jk")
+
+[node name="ExplosionArea" type="Area3D" parent="." unique_id=469934792]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea" unique_id=1222525260]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("BoxShape3D_be0jk")
+
+[node name="Timer" type="Timer" parent="." unique_id=1510947247]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1087018690]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_be0jk")
+
+[node name="CollideArea" type="Area3D" parent="." unique_id=611040083]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollideArea" unique_id=2074824425]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_t2ec2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1483841824]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = SubResource("SphereMesh_g1s4a")
+
+[node name="ExplosionWaitTime" type="Timer" parent="." unique_id=762211377]
+wait_time = 0.5
+
+[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="CollideArea" to="." method="_on_collide_area_body_entered"]
+[connection signal="timeout" from="ExplosionWaitTime" to="." method="_on_explosion_wait_time_timeout"]

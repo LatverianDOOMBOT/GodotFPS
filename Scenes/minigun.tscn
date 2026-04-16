@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bd4v1efymv2dd"]
+
+[ext_resource type="Script" uid="uid://c86nvt3tb3j33" path="res://Scripts/Player Weapons/minigun.gd" id="1_s3by3"]
+[ext_resource type="PackedScene" uid="uid://cpfdlrtyfhfn8" path="res://Models/Guns/Meshy_AI_PS1_low_poly_handheld_0223065820_generate.glb" id="2_1tci2"]
+
+[node name="Minigun" type="Node3D" unique_id=292091151]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_s3by3")
+
+[node name="Meshy_AI_PS1_low_poly_handheld_0223065820_generate" parent="." unique_id=362100050 instance=ExtResource("2_1tci2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=758246560]
+target_position = Vector3(-100, -1, 0)
+
+[node name="BulletSpawnPoint" type="Node3D" parent="." unique_id=1293204802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01085518, 0.17702174, -0.9667902)
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=808924941]
+wait_time = 0.08
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ds1t5vbcgl2rk"]
+
+[ext_resource type="Script" uid="uid://dw0tirxls2xb8" path="res://Scripts/Player/Player.gd" id="1_l8h54"]
+[ext_resource type="PackedScene" uid="uid://drwjpi3ud83lj" path="res://Player/player_ui.tscn" id="3_btcbx"]
+[ext_resource type="PackedScene" uid="uid://btmdyipvj6ye4" path="res://Scenes/shotgun.tscn" id="3_gwnis"]
+[ext_resource type="PackedScene" uid="uid://bd4v1efymv2dd" path="res://Scenes/minigun.tscn" id="4_k53q1"]
+[ext_resource type="PackedScene" uid="uid://c2guwqihou1eq" path="res://Scenes/GrenadeLauncher.tscn" id="5_k53q1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_btcbx"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4ntmi"]
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" unique_id=1278585195]
+script = ExtResource("1_l8h54")
+
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="." unique_id=1714605921]
+shape = SubResource("CapsuleShape3D_btcbx")
+
+[node name="Head" type="Node3D" parent="." unique_id=364487352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5668626, -0.28388667)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=811426457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2856933)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D" unique_id=2113527731]
+
+[node name="PlayerUI" parent="Head/Camera3D/CanvasLayer" unique_id=1045726951 instance=ExtResource("3_btcbx")]
+
+[node name="WeaponHolder" type="Node3D" parent="Head/Camera3D" unique_id=1937207161]
+transform = Transform3D(-0.028619478, 0, -0.9995904, 0, 1, 0, 0.9995904, 0, -0.028619478, 0.06326556, -0.5761817, -0.9321606)
+
+[node name="Minigun" parent="Head/Camera3D/WeaponHolder" unique_id=292091151 instance=ExtResource("4_k53q1")]
+transform = Transform3D(-4.284084e-08, 0, 1, 0, 1, 0, -1, 0, -4.284084e-08, 0, -0.116533756, 0)
+
+[node name="Shotgun" parent="Head/Camera3D/WeaponHolder" unique_id=587320121 node_paths=PackedStringArray("raycast") instance=ExtResource("3_gwnis")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58547294, 0.45318663, -0.16951537)
+raycast = NodePath("../../shootRay")
+
+[node name="GrenadeLauncher" parent="Head/Camera3D/WeaponHolder" unique_id=1828519915 instance=ExtResource("5_k53q1")]
+
+[node name="shootRay" type="RayCast3D" parent="Head/Camera3D" unique_id=678561994]
+
+[node name="Crouch" type="RayCast3D" parent="." unique_id=191893757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.118709505, 0)
+target_position = Vector3(0, 3, 0)
+hit_from_inside = true
+
+[node name="PlayerMeshInstance" type="MeshInstance3D" parent="." unique_id=303469874]
+mesh = SubResource("CapsuleMesh_4ntmi")
+
+[node name="groundRaycast" type="RayCast3D" parent="." unique_id=1137311412]
+target_position = Vector3(0, -2, 0)

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c2guwqihou1eq"]
+
+[ext_resource type="Script" uid="uid://qsscibb6ffyw" path="res://Scripts/Player Weapons/grenade_launcher.gd" id="1_3a3n0"]
+[ext_resource type="PackedScene" uid="uid://yviv3o1mj145" path="res://Models/Guns/Meshy_AI_Neon_Pulse_Cannon_0310091348_generate.glb" id="2_v6vey"]
+
+[node name="GrenadeLauncher" type="Node3D" unique_id=1828519915]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_3a3n0")
+
+[node name="Meshy_AI_Neon_Pulse_Cannon_0310091348_generate" parent="." unique_id=88397099 instance=ExtResource("2_v6vey")]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 0, 0, 0)
+
+[node name="shootTimer" type="Timer" parent="." unique_id=1354282196]
+wait_time = 1.5
+
+[node name="grenadeSpawnPoint" type="Node3D" parent="." unique_id=1105329456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0626169, 0.27007705, -1.0938218)
+
+[connection signal="timeout" from="shootTimer" to="." method="_on_shoot_timer_timeout"]
