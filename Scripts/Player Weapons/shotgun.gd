@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 			var object = raycast.get_collider()
 			print(object)
 			if object.is_in_group("enemies"):
+				object.health -= 10
 				print("enemy struck")
 				
 

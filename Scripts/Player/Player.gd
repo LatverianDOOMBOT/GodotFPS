@@ -31,9 +31,15 @@ func _ready() -> void:
 	add_to_group("player")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	WeaponChange(0)
-	print(current_weapon)
 	shootRay.position = Vector3.ZERO
 	shootRay.target_position = Vector3(0, 0, -50)
+	
+func bounce_back(from_position: Vector3, force: float = 20.0):
+	var dir = (global_transform.origin - from_position).normalized()
+	velocity += dir * force
+	
+	# optional vertical boost
+	velocity.y = force * 0.5
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
@@ -42,7 +48,6 @@ func _input(event):
 	
 func _physics_process(delta: float) -> void:
 	velocity.y += -gravity * delta
-	print(camera.position.y)
 	var input = Input.get_vector("Left", "Right", "Forward", "Backward")
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
 
@@ -108,9 +113,9 @@ func _physics_process(delta: float) -> void:
 		speed = 5.0
 		
 	if groundRayCast.is_colliding():
-		print("colliding")
+		#print("colliding")
 		collision_point_ground = groundRayCast.get_collision_point()
-		print("HIT:", collision_point_ground)
+		#print("HIT:", collision_point_ground)
 
 
 func crouch(enable: bool):

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b62ecye2ydxf8"]
 
+[ext_resource type="Script" uid="uid://d2222xa845enb" path="res://Scenes/spike.gd" id="1_cdj5a"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_bjemy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjemy"]
@@ -9,6 +11,7 @@ albedo_color = Color(0.73043936, 0, 0.13033682, 1)
 material = SubResource("StandardMaterial3D_bjemy")
 
 [node name="spike" type="Node3D" unique_id=2055852226]
+script = ExtResource("1_cdj5a")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=945403305]
 
@@ -17,3 +20,14 @@ shape = SubResource("BoxShape3D_bjemy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=857069199]
 mesh = SubResource("BoxMesh_cdj5a")
+
+[node name="Spike" type="Area3D" parent="." unique_id=50973213]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spike" unique_id=780313943]
+shape = SubResource("BoxShape3D_bjemy")
+
+[node name="Timer" type="Timer" parent="." unique_id=1181123035]
+wait_time = 3.0
+
+[connection signal="body_entered" from="Spike" to="." method="_on_spike_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

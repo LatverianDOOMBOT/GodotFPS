@@ -4,7 +4,12 @@ extends RigidBody3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Timer.start()
+	lock_rotation = true
+	gravity_scale = 0.0
+	contact_monitor = true
+	max_contacts_reported = 1
 	continuous_cd = true
+
 
 
 
